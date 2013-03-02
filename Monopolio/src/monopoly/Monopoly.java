@@ -16,11 +16,7 @@
 
 package monopoly;
 
-import java.awt.MouseInfo;
 import java.util.ArrayList;
-
-import org.lwjgl.input.Cursor;
-import org.lwjgl.input.Mouse;
 
 import monopoly.GUI.InGameGUI;
 import monopoly.GUI.MainMenu;
