@@ -1,0 +1,7 @@
+#PosicaoTabuleiro #Nome #Preço #ValorHipoteca #MultiplicadorAluguel
+5 readingrailroad 200 60 4
+12 electriccompany 200 60 4
+15 pennysylvaniarailroad 150 45 3
+25 beorailroad 200 60 4
+28 waterworks 150 45 3
+35 shortline 200 60 4
