@@ -16,7 +16,11 @@
 
 package monopoly;
 
+import java.awt.MouseInfo;
 import java.util.ArrayList;
+
+import org.lwjgl.input.Cursor;
+import org.lwjgl.input.Mouse;
 
 import monopoly.GUI.InGameGUI;
 import monopoly.GUI.MainMenu;
@@ -132,7 +136,7 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
 		if (x > splitFactor * Gdx.graphics.getWidth()) {
-			return RightPanelGUI.getSharedInstance().touchDown(x, y, pointer, button);
+			return RightPanelGUI.getSharedInstance().touchDown((int) (x - splitFactor * Gdx.graphics.getWidth()), y, pointer, button);
 		}
 		return false;
 	}
@@ -141,7 +145,7 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	public boolean touchUp(int x, int y, int pointer, int button)
 	{
 		if (x > splitFactor * Gdx.graphics.getWidth()) {
-			return RightPanelGUI.getSharedInstance().touchUp(x, y, pointer, button);
+			return RightPanelGUI.getSharedInstance().touchUp((int) (x - splitFactor * Gdx.graphics.getWidth()), y, pointer, button);
 		}
 		return false;
 	}
@@ -150,7 +154,7 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	public boolean touchDragged(int x, int y, int pointer)
 	{
 		if (x > splitFactor * Gdx.graphics.getWidth()) {
-			return RightPanelGUI.getSharedInstance().touchDragged(x, y, pointer);
+			return RightPanelGUI.getSharedInstance().touchDragged((int) (x - splitFactor * Gdx.graphics.getWidth()), y, pointer);
 		}
 		CameraHandler.getSharedInstance().orbitalCameraHandler();
 		return false;
@@ -160,7 +164,7 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	public boolean touchMoved(int x, int y)
 	{
 		if (x > splitFactor * Gdx.graphics.getWidth()) {
-			return RightPanelGUI.getSharedInstance().touchMoved(x, y);
+			return RightPanelGUI.getSharedInstance().touchMoved((int) (x - splitFactor * Gdx.graphics.getWidth()), y);
 		}
 		return false;
 	}
