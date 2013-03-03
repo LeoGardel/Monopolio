@@ -15,6 +15,7 @@ public class RightPanelGUI extends Stage
 	
 	public static RightPanelGUI getSharedInstance()
 	{
+		//teste
 		if (sharedInstance == null) {
 			sharedInstance = new RightPanelGUI();
 		}
