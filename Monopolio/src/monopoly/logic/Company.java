@@ -7,7 +7,7 @@ public class Company extends Property
 	public int factor;
 
 	public Company(String name, String cost, String mortgage, String fatorMultiplicativo, String spaceNumberString){
-		super(PropertyType.Company, Integer.parseInt(spaceNumberString));
+		super(PropertyType.Company, Integer.parseInt(spaceNumberString), name);
 		super.price = Integer.parseInt(cost);
 		factor = Integer.parseInt(fatorMultiplicativo);
 	}

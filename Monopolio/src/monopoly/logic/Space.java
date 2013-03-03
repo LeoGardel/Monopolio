@@ -7,13 +7,16 @@ public abstract class Space
 	public int spaceNumber;
 	public SpaceType spaceType;
 	public int ID;
+	public String name;
 	
 	private Vector3 centerPosition;
 	
-	public Space(SpaceType type, int spaceNumber)
+	public Space(SpaceType type, int spaceNumber, String name)
 	{
 		this.spaceNumber = spaceNumber;
 		spaceType = type;
+		
+		this.name = name;
 		
 		centerPosition = Board.getSharedInstance().getPositionFromSpace(spaceNumber);
 	}

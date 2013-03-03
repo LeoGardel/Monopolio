@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 
+import monopoly.RightPanelGUI;
 import monopoly.objects.InanimatedElement;
 import monopoly.objects.InanimatedObject;
 
@@ -48,6 +49,7 @@ public class Pawn
 		{
 			currentSpace -= Board.getSharedInstance().spaces.size();
 			Gdx.app.log("", "You crossed the start line. Receive U$ 200");
+			RightPanelGUI.getSharedInstance().showMessage("You crossed the start line. Receive R$200,00");
 			this.owner.playerCreditCard.credit(200);
 		}
 		Board.getSharedInstance().spaces.get(currentSpace).movePawnToHere(this);

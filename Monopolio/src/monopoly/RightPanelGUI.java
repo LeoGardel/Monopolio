@@ -1,6 +1,9 @@
 package monopoly;
 
+import java.util.List;
+
 import monopoly.GUI.ButtonForm;
+import monopoly.GUI.SleepState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -18,6 +21,12 @@ public class RightPanelGUI extends Stage
 	public static final int elementsMinSize = 5; 
 	public static final int elementsMinPadding = 10; 
 	private static RightPanelGUI sharedInstance;
+	private Image img;
+	private Label welcomePlayerMessage;
+	private Label diceResults;
+	private Label moneyLabel;
+	private Label messageLabel;
+	private Label spaceTypeLabel;
 	
 	public static RightPanelGUI getSharedInstance()
 	{
@@ -30,13 +39,29 @@ public class RightPanelGUI extends Stage
 	public RightPanelGUI(){
 		super((Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)), Gdx.graphics.getHeight(), false);
 		
-		Image img = new Image("bg", new Texture(Gdx.files.internal("resources/background-GUI.png")));
-		this.addActor(img);
+		img = new Image("bg", new Texture(Gdx.files.internal("resources/background-GUI.png")));
+		
+		LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
+		
+		welcomePlayerMessage = new Label("", labelStyle);
+		welcomePlayerMessage.width = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor));
+		welcomePlayerMessage.y = Gdx.graphics.getHeight() - 80;
+		welcomePlayerMessage.x = 10;
+		
+		diceResults = new Label("", labelStyle);
+		diceResults.x = welcomePlayerMessage.x;
+		
+		moneyLabel = new Label("", labelStyle);
+		moneyLabel.y = Gdx.graphics.getHeight() - 30;
+		
+		messageLabel = new Label("", labelStyle);
+		
+		spaceTypeLabel = new Label("", labelStyle);
 		
 		ButtonForm.loadNinesForButtons();
 		
 		setFirstMoment();
-		/*//
+		/*
 		this.addActor(new ButtonForm("Botoes Super", 1,5,1,1));
 		this.addActor(new ButtonForm("Lindos", 2,5,1,2));
 		this.addActor(new ButtonForm("Gostosos", 2,5,2,2));
@@ -51,20 +76,55 @@ public class RightPanelGUI extends Stage
 	}
 	
 	private void setFirstMoment() {
+		this.addActor(img);
+		
 		LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
 		Label label = new Label("Choose number of Player:", labelStyle);
 		label.y = Gdx.graphics.getHeight() - 60;
 		label.x = 10;
 		this.addActor(label);
 		
-		for(int i = 3; i<7; i++){
-			this.addActor(new ButtonForm(String.valueOf(i), (int) (3 + Math.floor((i-3)/2)), 12, 1+(1-i%2), 2) {
-				@Override
-				public void effect(){
-					//Monopoly.getSharedInstance().startGame(i);
-				}
-			});
-		}
+		
+		this.addActor(new ButtonForm("3", 4, 12, 1, 2){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().startGame(3);
+				Monopoly.getSharedInstance().baseGUI = new SleepState();
+				setInitTurnMoment();
+			}
+		});
+		this.addActor(new ButtonForm("4", 4, 12, 2, 2){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().startGame(4);
+				Monopoly.getSharedInstance().baseGUI = new SleepState();
+				setInitTurnMoment();
+			}
+		});
+		this.addActor(new ButtonForm("5", 5, 12, 1, 2){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().startGame(5);
+				Monopoly.getSharedInstance().baseGUI = new SleepState();
+				setInitTurnMoment();
+			}
+		});
+		this.addActor(new ButtonForm("6", 5, 12, 2, 2){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().startGame(6);
+				Monopoly.getSharedInstance().baseGUI = new SleepState();
+				setInitTurnMoment();
+			}
+		});
+	}
+
+	protected void setInitTurnMoment() {
+		this.addActor(img);
+		this.addActor(welcomePlayerMessage);
+		this.addActor(diceResults);
+		this.addActor(moneyLabel);
+		this.addActor(messageLabel);
 	}
 
 	@Override
@@ -143,5 +203,30 @@ public class RightPanelGUI extends Stage
 				((ButtonForm) actor).resize(newXSize, newYSize);
 			}
 		}
+		
+		img.height = Gdx.graphics.getHeight();
+		img.width = Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor);
+	}
+	
+	public void showActualPlayer(int playerID, int money, int result1, int result2, boolean diceAgain) {
+		if(diceAgain){
+			diceResults.setText(diceResults.getText() + "\n" + "You rolled " + result1 + "and " + result2);
+		}
+		else
+		{
+			messageLabel.setText("");
+			welcomePlayerMessage.setText("I'm player " + playerID + " and it's my turn!");
+			
+			diceResults.setText("You rolled " + result1 + "and " + result2);
+			
+			moneyLabel.setText("Current Money: R$" + money + ",00");
+			moneyLabel.x = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)) - moneyLabel.getPrefWidth() - 10;
+		}
+		
+		diceResults.y = welcomePlayerMessage.y - 20 - diceResults.getPrefHeight();
+	}
+
+	public void showMessage(String string) {
+		messageLabel.setText(messageLabel.getText() + "\n" + string);
 	}
 }

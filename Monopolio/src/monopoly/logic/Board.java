@@ -43,7 +43,7 @@ public class Board
 	{
 		try
 		{
-			boardModel = new InanimatedObject("board/board", "board/board1.png", false);
+			boardModel = new InanimatedObject("board/board", "board/board3.png", false);
 		}
 		catch (IOException e)
 		{
@@ -80,6 +80,7 @@ public class Board
             		if(number == 5 || number == 12 || number == 15 || number == 25 || number == 28 || number == 35){
             			Company company = new Company(strArray[1], strArray[2], strArray[3], strArray[4], strArray[0]);
             			spaces.add(company);
+            			company.name = strArray[1];
             		}
             		else if(number == 38 || number == 4)
             		{
@@ -97,6 +98,7 @@ public class Board
 	            		Neighbourhood neighbour = new Neighbourhood(strArray[1], strArray[2], 
 	            												   strArray[3], strArray[4], strArray[5], strArray[6], strArray[7], strArray[0]);
 	            		spaces.add(neighbour);
+	            		neighbour.name = strArray[1];
             		}
             		else
             		{

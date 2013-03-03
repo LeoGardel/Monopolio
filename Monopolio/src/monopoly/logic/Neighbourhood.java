@@ -28,7 +28,7 @@ public class Neighbourhood extends Property
 	public Neighbourhood(String name, String cost, String color, 
 			String houseCost, String hotelCost, String mortgage, String rent, String spaceNumberString)
 	{
-		super(PropertyType.Neighbourhood, Integer.parseInt(spaceNumberString));
+		super(PropertyType.Neighbourhood, Integer.parseInt(spaceNumberString), name);
 		super.name = name;
 		super.price = Integer.parseInt(cost);;
 		rentValue = Integer.parseInt(rent);

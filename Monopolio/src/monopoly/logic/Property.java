@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 
 public class Property extends Space
 {
-	public String name;
 	public int price;
 	public Player owner;
 	public PropertyType type;
 	
-	public Property(PropertyType propType, int spaceNumber)
+	public Property(PropertyType propType, int spaceNumber, String name)
 	{
-		super(SpaceType.Property, spaceNumber);
+		super(SpaceType.Property, spaceNumber, name);
 		this.type = propType;
 	}
 

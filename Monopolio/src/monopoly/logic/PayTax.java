@@ -8,7 +8,7 @@ public class PayTax extends Space
 	
 	public PayTax(int spaceNumber)
 	{
-		super(SpaceType.PayTax, spaceNumber);
+		super(SpaceType.PayTax, spaceNumber, "Pay Tax");
 		tax = 200;
 	}
 

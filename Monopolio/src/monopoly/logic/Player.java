@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import monopoly.Monopoly;
+import monopoly.RightPanelGUI;
 
 import com.badlogic.gdx.Gdx;
 
@@ -21,6 +22,7 @@ public class Player
 	private int leavePrisonAttempts;
 	private Board gameBoard;
 	public int lastDiceValue;
+	private boolean diceAgain;
 	
 	public Player(String name, int id, Color color)
 	{
@@ -40,6 +42,7 @@ public class Player
 		this.showInformationMessageToUser("I'm player " + this.playerID + " and it's my turn! My balance: U$" + this.playerCreditCard.money);
 		int plays = 0;
 		int sum = 0;
+		diceAgain = false;
 		
 		if(isArrested)
 			tentarSairDaPrisao();
@@ -52,6 +55,8 @@ public class Player
 		int result2 = generator.nextInt(6) + 1;
 		
 		this.showInformationMessageToUser("You rolled " + result1 + " and " + result2 + " .");
+		RightPanelGUI.getSharedInstance().showActualPlayer(this.playerID, this.playerCreditCard.money, result1, result2, diceAgain);
+		diceAgain = false;
 		
 		sum += (result1 + result2);
 		
@@ -67,6 +72,7 @@ public class Player
 		
 		if(result1 == result2)
 		{
+			diceAgain = true;
 			rollDiceStep(plays, sum);
 			return;
 		}
@@ -75,8 +81,16 @@ public class Player
 	
 		lastDiceValue = sum;		gameBoard.spaces.get(playerPawn.currentSpace).effect(this);
 		
+		showWherePlayerStopped();
 	}
 	
+	private void showWherePlayerStopped() {
+		String str = gameBoard.spaces.get(playerPawn.currentSpace).name;
+		str = str.replaceAll("_", " ");
+		
+		RightPanelGUI.getSharedInstance().showMessage(str);
+	}
+
 	private void tentarSairDaPrisao() {
 		int result1 = generator.nextInt(6) + 1;
 		int result2 = generator.nextInt(6) + 1;

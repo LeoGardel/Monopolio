@@ -6,7 +6,7 @@ public class GoToPrison extends Space
 {
 	public GoToPrison(int spaceNumber)
 	{
-		super(SpaceType.GoToJail, spaceNumber);
+		super(SpaceType.GoToJail, spaceNumber, "Go to Jail");
 	}
 	
 	@Override
