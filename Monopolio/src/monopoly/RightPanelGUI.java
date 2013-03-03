@@ -36,7 +36,7 @@ public class RightPanelGUI extends Stage
 		ButtonForm.loadNinesForButtons();
 		
 		setFirstMoment();
-		/*
+		/*//
 		this.addActor(new ButtonForm("Botoes Super", 1,5,1,1));
 		this.addActor(new ButtonForm("Lindos", 2,5,1,2));
 		this.addActor(new ButtonForm("Gostosos", 2,5,2,2));
