@@ -42,7 +42,7 @@ public class ObjectRenderer
 	
 	public void drawAll()
 	{
-		gl.glViewport(0, 0, (Gdx.graphics.getWidth()*4)/5, Gdx.graphics.getHeight());
+		gl.glViewport(0, 0, (int) (Gdx.graphics.getWidth() * Monopoly.splitFactor ), Gdx.graphics.getHeight());
 		gl.glEnable(GL10.GL_TEXTURE_2D);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);	
 		gl.glFrontFace(GL10.GL_CCW);
