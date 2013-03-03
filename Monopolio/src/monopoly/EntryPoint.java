@@ -18,8 +18,14 @@ package monopoly;
 
 import com.badlogic.gdx.backends.jogl.JoglApplication;
 
-public class HelloWorldDesktop {
+public class EntryPoint {
 	public static void main (String[] argv) {
-		new JoglApplication(Monopoly.getSharedInstance(), "Monopoly", 1000, 600, false);
+		new JoglApplication(
+				Monopoly.getSharedInstance(),
+				"Monopoly", 
+				Monopoly.applicationInitialWidth, 
+				Monopoly.applicationInitialHeight, 
+				false
+				);
 	}
 }

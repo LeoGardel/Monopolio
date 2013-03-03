@@ -34,9 +34,9 @@ public class CameraHandler
 		camera.apply(Gdx.graphics.getGL10());
 	}
 
-	private float _PI = 3.141592f;
+	//private float _PI = 3.141592f;
 
-	private boolean touchOn = false;
+	//private boolean touchOn = false;
 	private float _orbit = 5f;
 	private float _orbitMin = 1f;
 	private float _theta = 1.2f;
@@ -47,10 +47,10 @@ public class CameraHandler
 	
 	private Vector3 _lookAtPosition = new Vector3();
 	private Vector3 _vLookAtPosition = new Vector3();
-	private Vector3 _cameraUp = new Vector3(0, 0, 1);
+	//private Vector3 _cameraUp = new Vector3(0, 0, 1);
 
-	private boolean _doubleTapEnabled = true;
-	private boolean pan_or_rota = true;
+	//private boolean _doubleTapEnabled = true;
+	//private boolean pan_or_rota = true;
 
 
 	public boolean orbitalCameraHandler()

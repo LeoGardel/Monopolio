@@ -2,7 +2,6 @@ package monopoly.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g3d.loaders.ogre.mesh.Animations;
 import com.badlogic.gdx.math.Vector3;
 
 public class AnimatedElement

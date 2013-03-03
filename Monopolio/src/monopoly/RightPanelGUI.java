@@ -1,27 +1,16 @@
 package monopoly;
 
+import monopoly.GUI.ButtonForm;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.ComboBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 
 public class RightPanelGUI extends Stage
 {	
-	ButtonStyle btStyle;
-	Button button;
-	NinePatch nine;
-	NinePatch nine2;
-	NinePatch nine3;
-	
+	public static final int elementsMinSize = 5; 
+	public static final int elementsMinPadding = 10; 
 	private static RightPanelGUI sharedInstance;
 	
 	public static RightPanelGUI getSharedInstance()
@@ -35,34 +24,27 @@ public class RightPanelGUI extends Stage
 	public RightPanelGUI(){
 		super((Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)), Gdx.graphics.getHeight(), false);
 		
-		nine = new NinePatch(new Texture(Gdx.files.internal("resources/background-button.png")), 0, 0, 0, 0);
-		nine2 = new NinePatch(new Texture(Gdx.files.internal("resources/background-button2.png")), 0, 0, 0, 0);
-		nine3 = new NinePatch(new Texture(Gdx.files.internal("resources/background-button3.png")), 0, 0, 0, 0);
-		
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = new BitmapFont();
-		labelStyle.fontColor = new Color(1, 0, 0, 1);
-		Label label = new Label("teste teste", labelStyle);
-		
-		btStyle = new ButtonStyle();
-		btStyle.up = nine;
-		button = new Button(btStyle);
-		
-		button.y = 500;
-		button.x = 30;
-		button.width = 128;
-		button.height = 32;
-		
-		button.add(label);
-		this.addActor(button);
+		ButtonForm.loadNinesForButtons();
+
+		this.addActor(new ButtonForm("Botoes Super", 1,5,1,1));
+		this.addActor(new ButtonForm("Lindos", 2,5,1,2));
+		this.addActor(new ButtonForm("Gostosos", 2,5,2,2));
+		this.addActor(new ButtonForm("Cheirosos", 3,5,1,2));
+		this.addActor(new ButtonForm("e de facil", 3,5,2,2));
+		this.addActor(new ButtonForm("alinhamento e reescala", 4,5,1,1, 200, 70));
 	}
 	
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
-		if(testMousePosition(x, y, this.button))
-		{
-			btStyle.up = nine3;
+		for (Actor actor : this.getActors()) {
+			if(testMousePosition(x, y, actor))
+			{
+				if (actor instanceof ButtonForm) {
+					((ButtonForm) actor).touchDown();
+					return true;
+				}
+			}
 		}
 		
 		return false;
@@ -80,28 +62,53 @@ public class RightPanelGUI extends Stage
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button)
 	{
-		if(testMousePosition(x, y, this.button))
-		{
-			btStyle.up = nine2;
+		for (Actor actor : this.getActors()) {
+			if(testMousePosition(x, y, actor))
+			{
+				if (actor instanceof ButtonForm) {
+					if (actor.equals(ButtonForm.clickedButton)) {
+						((ButtonForm) actor).touchUp();
+						return true;
+					}
+					else {
+						break;
+					}
+				}
+			}
 		}
-		else
-		{
-			btStyle.up = nine;
-		}
+		
+		ButtonForm.clearClicked();
+		
 		return false;
 	}
 	
 	@Override
 	public boolean touchMoved(int x, int y)
 	{
-		if(testMousePosition(x, y, this.button))
-		{
-			btStyle.up = nine2;
+		for (Actor actor : this.getActors()) {
+			if(testMousePosition(x, y, actor))
+			{
+				if (actor instanceof ButtonForm) {
+					((ButtonForm) actor).setAsHovered();
+					return true;
+				}
+			}
 		}
-		else
-		{
-			btStyle.up = nine;
-		}
+
+		ButtonForm.clearHovered();
+		
 		return false;
+	}
+	
+	public void resize() {
+		float newXSize = Gdx.graphics.getWidth()*(1 - Monopoly.splitFactor);
+		float newYSize = Gdx.graphics.getHeight();
+		
+		this.setViewport(newXSize, newYSize, true);
+		for (Actor actor : this.getActors()) {
+			if (actor instanceof ButtonForm) {
+				((ButtonForm) actor).resize(newXSize, newYSize);
+			}
+		}
 	}
 }

@@ -38,7 +38,6 @@ public class ObjectRenderer
 		gl.glDisable(GL10.GL_COLOR_MATERIAL);
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glEnable(GL10.GL_CULL_FACE);
-		gl.glEnable(GL10.GL_TEXTURE_2D);
 	}
 	
 	public void drawAll()

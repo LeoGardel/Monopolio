@@ -16,11 +16,7 @@
 
 package monopoly;
 
-import java.awt.MouseInfo;
 import java.util.ArrayList;
-
-import org.lwjgl.input.Cursor;
-import org.lwjgl.input.Mouse;
 
 import monopoly.GUI.InGameGUI;
 import monopoly.GUI.MainMenu;
@@ -36,6 +32,8 @@ import com.badlogic.gdx.InputProcessor;
 
 public class Monopoly implements ApplicationListener, InputProcessor {
 	
+	public static final int applicationInitialWidth = 1000;
+	public static final int applicationInitialHeight = 600;
 	public static final float splitFactor = 0.8f;
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
@@ -95,7 +93,7 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	@Override
 	public void resize (int width, int height) {
 		Gdx.graphics.getGL10().glViewport(0, 0, (int) (Gdx.graphics.getWidth() * splitFactor), Gdx.graphics.getHeight());
-		RightPanelGUI.getSharedInstance().setViewport((Gdx.graphics.getWidth()*(1 - splitFactor)), Gdx.graphics.getHeight(), true);
+		RightPanelGUI.getSharedInstance().resize();
 	}
 
 	@Override

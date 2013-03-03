@@ -1,23 +1,20 @@
 package monopoly.logic;
 
-import java.util.ArrayList;
-
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import monopoly.camera.CameraHandler;
 import monopoly.objects.InanimatedElement;
 import monopoly.objects.InanimatedObject;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
 public class Board
 {
-	private float borderLimit = 4.3f;
+	//private float borderLimit = 4.3f;
 	
 	InanimatedObject boardModel;
 	InanimatedElement boardNode;
@@ -63,8 +60,8 @@ public class Board
 		File file = new File("data/neighborhood_data.txt");
         BufferedReader reader = null;
         
-        File file2 = new File("data/company_data.txt");
-        BufferedReader reader2 = null;
+        //File file2 = new File("data/company_data.txt");
+        //BufferedReader reader2 = null;
  
         try 
         {
@@ -135,7 +132,7 @@ public class Board
 
 	public Vector3 getPositionFromSpace(int spaceNumber)
 	{
-		float spaceStep = (spaceNumber % 10) * (borderLimit * 2.0f) / 10.0f;
+		//float spaceStep = (spaceNumber % 10) * (borderLimit * 2.0f) / 10.0f;
 		
 		if 		(spaceNumber == 0) return new Vector3(5-9.0f, 5-0.8f, 0f);
 		else if (spaceNumber == 1) return new Vector3(5-8.0f, 5-0.8f, 0f);
