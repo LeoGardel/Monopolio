@@ -32,9 +32,9 @@ import com.badlogic.gdx.InputProcessor;
 
 public class Monopoly implements ApplicationListener, InputProcessor {
 	
-	public static final int applicationInitialWidth = 1000;
-	public static final int applicationInitialHeight = 600;
-	public static final float splitFactor = 0.8f;
+	public static final int applicationInitialWidth = 800;
+	public static final int applicationInitialHeight = 512;
+	public static final float splitFactor = 0.68f;
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
 	public InGameGUI baseGUI;

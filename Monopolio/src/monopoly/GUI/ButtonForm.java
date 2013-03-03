@@ -57,7 +57,7 @@ public class ButtonForm extends Button
 		
 		setUpVariables(text);
 	}
-	
+
 	/*
 	 *Construtor que inicializa o botão com as dimensões (width e height) padrão
 	 *	text - Texto que vai ser escrito na label, dentro do botão
@@ -84,9 +84,7 @@ public class ButtonForm extends Button
 	 *Função que inicializa as variáveis do botão.
 	 */
 	private void setUpVariables(String text) {
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = new BitmapFont();
-		labelStyle.fontColor = new Color(0, 0, 0, 1);
+		LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
 		Label label = new Label(text, labelStyle);
 		this.add(label);
 		
