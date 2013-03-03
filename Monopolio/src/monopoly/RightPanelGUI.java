@@ -30,8 +30,13 @@ public class RightPanelGUI extends Stage
 		this.addActor(new ButtonForm("Lindos", 2,5,1,2));
 		this.addActor(new ButtonForm("Gostosos", 2,5,2,2));
 		this.addActor(new ButtonForm("Cheirosos", 3,5,1,2));
-		this.addActor(new ButtonForm("e de facil", 3,5,2,2));
-		this.addActor(new ButtonForm("alinhamento e reescala", 4,5,1,1, 200, 70));
+		this.addActor(new ButtonForm("e tudo +", 3,5,2,2));
+		this.addActor(new ButtonForm("CLIQUE AQUI", 5,5,1,1, 200, 70) {
+			@Override
+			public void effect() {
+				setText("VALEU LEK! E NOS");
+			}
+		});
 	}
 	
 	@Override
