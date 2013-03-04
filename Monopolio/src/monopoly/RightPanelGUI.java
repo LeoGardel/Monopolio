@@ -79,6 +79,7 @@ public class RightPanelGUI extends Stage
 			public void effect() {
 				setText("VALEU LEK! E NOS");
 			}
+			//QUE PEDERASTIA É ESSA?????????????
 		});*/
 	}
 	
@@ -86,7 +87,7 @@ public class RightPanelGUI extends Stage
 		this.addActor(img);
 		
 		LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
-		Label label = new Label("Choose number of Player:", labelStyle);
+		Label label = new Label("Choose number of Players:", labelStyle);
 		label.y = Gdx.graphics.getHeight() - 60;
 		label.x = 10;
 		this.addActor(label);
@@ -292,9 +293,9 @@ public class RightPanelGUI extends Stage
 		else
 		{
 			messageLabel.setText("");
-			welcomePlayerMessage.setText("I'm player " + playerID + " and it's my turn!");
+			welcomePlayerMessage.setText("I'm player " + (playerID+1) + " and it's my turn!");
 			
-			diceResults.setText("You rolled " + result1 + "and " + result2);
+			diceResults.setText("You rolled " + result1 + " and " + result2);
 			
 			moneyLabel.setText("Current Money: R$" + money + ",00");
 			moneyLabel.x = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)) - moneyLabel.getPrefWidth() - 10;
