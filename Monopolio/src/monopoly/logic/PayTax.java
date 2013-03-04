@@ -1,5 +1,7 @@
 package monopoly.logic;
 
+import monopoly.RightPanelGUI;
+
 import com.badlogic.gdx.Gdx;
 
 public class PayTax extends Space
@@ -16,6 +18,7 @@ public class PayTax extends Space
 	public void effect(Player player) 
 	{
 		Gdx.app.log("", "You were taxed in " + tax + " dollars!");
+		RightPanelGUI.getSharedInstance().showMessage("You were taxed in " + tax + " dollars!");
 		player.playerCreditCard.credit(tax);
 	}
 }

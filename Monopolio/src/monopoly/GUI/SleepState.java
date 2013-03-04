@@ -14,6 +14,8 @@ public class SleepState extends InGameGUI
 	
 	public void effect()
 	{
+		Monopoly.getSharedInstance().callNextPlayer();
+		Monopoly.getSharedInstance().baseGUI = new PlayerInterface();
 		if (Gdx.input.isKeyPressed(Keys.SPACE))
 		{
 			Monopoly.getSharedInstance().callNextPlayer();

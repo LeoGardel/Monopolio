@@ -55,6 +55,7 @@ public class Player
 		int result2 = generator.nextInt(6) + 1;
 		
 		this.showInformationMessageToUser("You rolled " + result1 + " and " + result2 + " .");
+		
 		RightPanelGUI.getSharedInstance().showActualPlayer(this.playerID, this.playerCreditCard.money, result1, result2, diceAgain);
 		diceAgain = false;
 		
@@ -67,6 +68,7 @@ public class Player
 			isArrested = true;
 			this.playerPawn.goToJail();
 			this.showInformationMessageToUser("You are arrested!");
+			RightPanelGUI.getSharedInstance().showMessage("You are arrested!");
 			return;
 		}
 		
@@ -77,18 +79,54 @@ public class Player
 			return;
 		}
 		
+		boolean arrest = false;
+		if(playerPawn.currentSpace + sum == 30)
+		{
+			arrest = true;
+		}
 		this.playerPawn.move(sum);
 	
 		lastDiceValue = sum;		gameBoard.spaces.get(playerPawn.currentSpace).effect(this);
 		
-		showWherePlayerStopped();
+		showWherePlayerStopped(arrest);
+		
 	}
 	
-	private void showWherePlayerStopped() {
-		String str = gameBoard.spaces.get(playerPawn.currentSpace).name;
-		str = str.replaceAll("_", " ");
-		
-		RightPanelGUI.getSharedInstance().showMessage(str);
+	private void showWherePlayerStopped(boolean arrest) {
+		if(arrest){
+			RightPanelGUI.getSharedInstance().showSpaceType("Prison");
+			RightPanelGUI.getSharedInstance().setElse();
+		}
+		else{
+			String str = gameBoard.spaces.get(playerPawn.currentSpace).name;
+			str = str.replaceAll("_", " ");
+			
+			RightPanelGUI.getSharedInstance().showSpaceType(str);
+			if(str == "FreeStop" || str == "Pay Tax")
+			{
+				RightPanelGUI.getSharedInstance().setElse();
+			}
+			else
+			{
+				Property prop = ((Property)gameBoard.spaces.get(playerPawn.currentSpace));
+				if(prop.type.toString() == "Company")
+				{
+					if (prop.owner == null || prop.owner.playerID == Monopoly.getSharedInstance().currentPlayer)
+						RightPanelGUI.getSharedInstance().setAvailableCompany();
+					else
+						RightPanelGUI.getSharedInstance().setOwnedCompany();
+				}
+				else if (prop.type.toString() == "Neighbourhood")
+				{
+					if(prop.owner == null)
+						RightPanelGUI.getSharedInstance().setAvailableNeighbourhood();
+					else if(prop.owner.playerID == Monopoly.getSharedInstance().currentPlayer)
+						RightPanelGUI.getSharedInstance().setOwnerNeighbourhood();
+					else
+						RightPanelGUI.getSharedInstance().setOwnedNeighbourhood();
+				}
+			}
+		}
 	}
 
 	private void tentarSairDaPrisao() {
@@ -102,6 +140,7 @@ public class Player
 			isArrested = false;
 			leavePrisonAttempts = 0;
 			this.showInformationMessageToUser("You are free!");
+			RightPanelGUI.getSharedInstance().showMessage("You are free");
 			this.playerPawn.move(result1 + result2);
 		}
 		
@@ -116,6 +155,8 @@ public class Player
 				isArrested = false;
 				leavePrisonAttempts = 0;
 				this.showInformationMessageToUser("You are free, but you have to pay 500...");
+				RightPanelGUI.getSharedInstance().showMessage("You are free, but you have \nto pay 500...");
+				
 				playerCreditCard.debit(500);
 			}
 		}
@@ -138,6 +179,7 @@ public class Player
 		}
 		else{
 			Gdx.app.log("", "You cannot buy this property.");
+			RightPanelGUI.getSharedInstance().showMessage("You cannot buy this property.");
 		}
 	}
 	
@@ -147,11 +189,13 @@ public class Player
 			if (((Property)gameBoard.spaces.get(playerPawn.currentSpace)).type == PropertyType.Neighbourhood){
 				if(((Neighbourhood)gameBoard.spaces.get(playerPawn.currentSpace)).buildHouse(this)){
 					this.showInformationMessageToUser("Your house was built.");
+					RightPanelGUI.getSharedInstance().showMessage("Your house was built.");
 					return;
 				}
 			}
 		}
 		this.showInformationMessageToUser("You can't build a house over there.");
+		RightPanelGUI.getSharedInstance().showMessage("You can't build a house over there.");
 	}
 	
 	public void buildHotel()
@@ -160,11 +204,13 @@ public class Player
 			if (((Property)gameBoard.spaces.get(playerPawn.currentSpace)).type == PropertyType.Neighbourhood){
 				if(((Neighbourhood)gameBoard.spaces.get(playerPawn.currentSpace)).buildHotel(this)){
 					this.showInformationMessageToUser("Your hotel was built.");
+					RightPanelGUI.getSharedInstance().showMessage("Your hotel was built.");
 					return;
 				}
 			}
 		}
 		this.showInformationMessageToUser("You can't build a hotel over there.");
+		RightPanelGUI.getSharedInstance().showMessage("You can't build a hotel over there.");
 	}
 	
 	public void endTurn()

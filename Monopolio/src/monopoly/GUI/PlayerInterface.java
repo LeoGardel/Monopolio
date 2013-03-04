@@ -14,6 +14,7 @@ public class PlayerInterface extends InGameGUI
 	
 	public void effect()
 	{
+		/*
 		if (Gdx.input.isKeyPressed(Keys.SPACE))
 		{
 			Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).endTurn();
@@ -30,5 +31,6 @@ public class PlayerInterface extends InGameGUI
 		{
 			Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buildHotel();
 		}
+		*/
 	}
 }

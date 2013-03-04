@@ -1,5 +1,7 @@
 package monopoly.logic;
 
+import monopoly.RightPanelGUI;
+
 import com.badlogic.gdx.Gdx;
 
 public class GoToPrison extends Space
@@ -14,6 +16,7 @@ public class GoToPrison extends Space
 	{
 		player.isArrested = true;
 		Gdx.app.log("", "You are arrested!");
+		RightPanelGUI.getSharedInstance().showMessage("You are arrested!");
 		player.playerPawn.goToJail();
 	}
 }

@@ -3,6 +3,7 @@ package monopoly;
 import java.util.List;
 
 import monopoly.GUI.ButtonForm;
+import monopoly.GUI.PlayerInterface;
 import monopoly.GUI.SleepState;
 
 import com.badlogic.gdx.Gdx;
@@ -27,6 +28,10 @@ public class RightPanelGUI extends Stage
 	private Label moneyLabel;
 	private Label messageLabel;
 	private Label spaceTypeLabel;
+	private ButtonForm terminarRodada;
+	private ButtonForm comprarCasa;
+	private ButtonForm comprarHotel;
+	private ButtonForm comprarPropriedade;
 	
 	public static RightPanelGUI getSharedInstance()
 	{
@@ -55,6 +60,8 @@ public class RightPanelGUI extends Stage
 		moneyLabel.y = Gdx.graphics.getHeight() - 30;
 		
 		messageLabel = new Label("", labelStyle);
+		messageLabel.x = 10;
+		messageLabel.width = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor));
 		
 		spaceTypeLabel = new Label("", labelStyle);
 		
@@ -89,32 +96,24 @@ public class RightPanelGUI extends Stage
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(3);
-				Monopoly.getSharedInstance().baseGUI = new SleepState();
-				setInitTurnMoment();
 			}
 		});
 		this.addActor(new ButtonForm("4", 4, 12, 2, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(4);
-				Monopoly.getSharedInstance().baseGUI = new SleepState();
-				setInitTurnMoment();
 			}
 		});
 		this.addActor(new ButtonForm("5", 5, 12, 1, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(5);
-				Monopoly.getSharedInstance().baseGUI = new SleepState();
-				setInitTurnMoment();
 			}
 		});
 		this.addActor(new ButtonForm("6", 5, 12, 2, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(6);
-				Monopoly.getSharedInstance().baseGUI = new SleepState();
-				setInitTurnMoment();
 			}
 		});
 	}
@@ -125,6 +124,84 @@ public class RightPanelGUI extends Stage
 		this.addActor(diceResults);
 		this.addActor(moneyLabel);
 		this.addActor(messageLabel);
+		this.addActor(spaceTypeLabel);
+		setSpaceButtons();
+	}
+	
+	private void setSpaceButtons(){
+		terminarRodada = new ButtonForm("Terminar Rodada", 8, 8, 1, 1, 256, 64){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).endTurn();
+			}
+		};
+		this.addActor(terminarRodada);
+		
+		comprarPropriedade = new ButtonForm("Comprar Propriedade", 7, 8, 1, 1, 256, 64){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buyProperty();
+			}
+		};
+		this.addActor(comprarPropriedade);
+		
+		comprarCasa = new ButtonForm("Comprar Casa", 6, 8, 1, 1, 256, 64){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buildHouse();
+			}
+		};
+		this.addActor(comprarCasa);
+		
+		comprarHotel = new ButtonForm("Comprar Hotel", 7, 8, 1, 1, 256, 64){
+			@Override
+			public void effect(){
+				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buildHotel();
+			}
+		};
+		this.addActor(comprarHotel);
+	}
+	
+	public void setAvailableCompany() {
+		terminarRodada.visible = true;
+		comprarPropriedade.visible = true;
+		comprarCasa.visible = false;
+		comprarHotel.visible = false;
+	}
+	
+	public void setOwnedCompany() {
+		terminarRodada.visible = true;
+		comprarPropriedade.visible = false;
+		comprarCasa.visible = false;
+		comprarHotel.visible = false;
+	}
+	
+	public void setAvailableNeighbourhood() {
+		terminarRodada.visible = true;
+		comprarPropriedade.visible = true;
+		comprarCasa.visible = false;
+		comprarHotel.visible = false;
+	}
+	
+	public void setOwnerNeighbourhood() {
+		terminarRodada.visible = true;
+		comprarPropriedade.visible = false;
+		comprarCasa.visible = true;
+		comprarHotel.visible = true;
+	}
+	
+	public void setOwnedNeighbourhood(){
+		terminarRodada.visible = true;
+		comprarPropriedade.visible = false;
+		comprarCasa.visible = false;
+		comprarHotel.visible = false;
+	}
+	
+	public void setElse() {
+		terminarRodada.visible = true;
+		comprarPropriedade.visible = false;
+		comprarCasa.visible = false;
+		comprarHotel.visible = false;
 	}
 
 	@Override
@@ -228,5 +305,14 @@ public class RightPanelGUI extends Stage
 
 	public void showMessage(String string) {
 		messageLabel.setText(messageLabel.getText() + "\n" + string);
+		messageLabel.y = spaceTypeLabel.y - messageLabel.getPrefHeight();
+	}
+
+	public void showSpaceType(String str) {
+		spaceTypeLabel.setText("You are at " + str);
+		spaceTypeLabel.y = diceResults.y - 30;
+		spaceTypeLabel.x = 10;
+		
+		messageLabel.y = spaceTypeLabel.y - messageLabel.getPrefHeight();
 	}
 }

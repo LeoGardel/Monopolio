@@ -9,11 +9,12 @@ public class MainMenu extends InGameGUI
 {
 	public MainMenu()
 	{
-		Gdx.app.log("", "Choose number of players (enter a number from 3-6): ");
+		//Gdx.app.log("", "Choose number of players (enter a number from 3-6): ");
 	}
 	
 	public void effect()
 	{
+		/*
 		if (Gdx.input.isKeyPressed(Keys.NUM_3))
 		{
 			Gdx.app.log("", "You selected 3 players");
@@ -38,5 +39,6 @@ public class MainMenu extends InGameGUI
 			Monopoly.getSharedInstance().startGame(6);
 			Monopoly.getSharedInstance().baseGUI = new SleepState();
 		}
+		*/
 	}
 }

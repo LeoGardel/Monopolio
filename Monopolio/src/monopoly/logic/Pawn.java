@@ -49,7 +49,7 @@ public class Pawn
 		{
 			currentSpace -= Board.getSharedInstance().spaces.size();
 			Gdx.app.log("", "You crossed the start line. Receive U$ 200");
-			RightPanelGUI.getSharedInstance().showMessage("You crossed the start line. Receive R$200,00");
+			RightPanelGUI.getSharedInstance().showMessage("You crossed the start line. \nReceive R$200,00");
 			this.owner.playerCreditCard.credit(200);
 		}
 		Board.getSharedInstance().spaces.get(currentSpace).movePawnToHere(this);

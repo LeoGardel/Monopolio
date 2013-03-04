@@ -5,7 +5,7 @@ public class PlayerCreditCard
 	public int money;
 	
 	public PlayerCreditCard(){
-		money = 15000;
+		money = 1500;
 	}
 	
 	public void debit(int value){

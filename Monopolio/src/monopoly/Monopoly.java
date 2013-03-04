@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import monopoly.GUI.InGameGUI;
 import monopoly.GUI.MainMenu;
+import monopoly.GUI.PlayerInterface;
 import monopoly.camera.CameraHandler;
 import monopoly.logic.Board;
 import monopoly.logic.Color;
@@ -58,6 +59,10 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 		{
 			players.add( new Player("player " + i, i, Color.values()[i]) );
 		}
+		
+		RightPanelGUI.getSharedInstance().setInitTurnMoment();
+		Monopoly.getSharedInstance().callNextPlayer();
+		Monopoly.getSharedInstance().baseGUI = new PlayerInterface();
 	}
 	
 	public void callNextPlayer()

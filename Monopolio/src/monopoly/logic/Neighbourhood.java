@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 
+import monopoly.RightPanelGUI;
 import monopoly.objects.InanimatedElement;
 import monopoly.objects.InanimatedObject;
 
@@ -178,6 +179,8 @@ public class Neighbourhood extends Property
 			player.playerCreditCard.debit(rentValue);
 			super.owner.playerCreditCard.credit(rentValue);
 			Gdx.app.log("", "You paid a rent of " + rentValue + " dollars!");
+			RightPanelGUI.getSharedInstance().showMessage("This property belong to player " + this.owner.playerID + 
+					"\nYou paid a rent of " + rentValue + " dollars!");
 		}
 		else
 			player.declareBankruptcy();
