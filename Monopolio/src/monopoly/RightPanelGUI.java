@@ -141,7 +141,9 @@ public class RightPanelGUI extends Stage
 		comprarPropriedade = new ButtonForm("Comprar Propriedade", 7, 8, 1, 1, 256, 64){
 			@Override
 			public void effect(){
+				if (this.visible){
 				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buyProperty();
+				}
 			}
 		};
 		this.addActor(comprarPropriedade);
@@ -149,7 +151,9 @@ public class RightPanelGUI extends Stage
 		comprarCasa = new ButtonForm("Comprar Casa", 6, 8, 1, 1, 256, 64){
 			@Override
 			public void effect(){
+				if (this.visible){
 				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buildHouse();
+				}
 			}
 		};
 		this.addActor(comprarCasa);
@@ -157,7 +161,9 @@ public class RightPanelGUI extends Stage
 		comprarHotel = new ButtonForm("Comprar Hotel", 7, 8, 1, 1, 256, 64){
 			@Override
 			public void effect(){
+				if (this.visible){
 				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buildHotel();
+				}
 			}
 		};
 		this.addActor(comprarHotel);
@@ -305,8 +311,10 @@ public class RightPanelGUI extends Stage
 	}
 
 	public void showMessage(String string) {
+		if (!(messageLabel.getText().contains(string))){
 		messageLabel.setText(messageLabel.getText() + "\n" + string);
 		messageLabel.y = spaceTypeLabel.y - messageLabel.getPrefHeight();
+		}
 	}
 
 	public void showSpaceType(String str) {

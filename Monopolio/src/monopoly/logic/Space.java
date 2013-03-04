@@ -1,5 +1,6 @@
 package monopoly.logic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 
 public abstract class Space
@@ -49,6 +50,7 @@ public abstract class Space
 		{
 			pawn.pawnNode.position.set(centerPosition).add(0f, -0.3f, 0f);
 		}	
+		
 	}
 	
 	public Vector3 getHousePosition(int slot)

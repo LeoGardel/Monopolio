@@ -34,6 +34,7 @@ public class Property extends Space
 			RightPanelGUI.getSharedInstance().showMessage("You bought this property for " + price + " dollars!");
 			return;
 		}
+		
 		Gdx.app.log("", "You cannot afford this property, or it's already owned.");
 		RightPanelGUI.getSharedInstance().showMessage("You cannot buy this property.");
 	}
