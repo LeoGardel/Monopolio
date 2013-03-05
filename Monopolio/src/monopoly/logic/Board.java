@@ -1,4 +1,4 @@
-package monopoly.logic;
+	package monopoly.logic;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,6 +44,7 @@ public class Board
 		try
 		{
 			boardModel = new InanimatedObject("board/board", "board/board3.png", false);
+//			boardModel = new InanimatedObject("dice/dice1", "dice/dice.png", false);
 		}
 		catch (IOException e)
 		{
