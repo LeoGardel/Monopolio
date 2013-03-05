@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -176,6 +177,18 @@ public class ButtonForm extends Button
 		float centralizedY = y - ((myRow - 1) + 0.5f ) * yPartitionSize;
 		
 		centralizeAt(centralizedX, centralizedY);
+		centralizeLabel();
+	}
+	
+	/*
+	 *Função que centraliza a label dentro do botão.
+	 */
+	public void centralizeLabel() {
+		Actor label = getActors().get(0);
+		float diffWidth = this.width - label.width;
+		float diffHeight = this.height - label.height;
+		label.x = diffWidth/2;
+		label.y = diffHeight/2;
 	}
 	
 	/*

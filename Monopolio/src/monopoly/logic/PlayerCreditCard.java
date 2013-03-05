@@ -1,5 +1,8 @@
 package monopoly.logic;
 
+import monopoly.Monopoly;
+import monopoly.RightPanelGUI;
+
 public class PlayerCreditCard
 {
 	public int money;
@@ -10,9 +13,15 @@ public class PlayerCreditCard
 	
 	public void debit(int value){
 		money -= value;
+		if (Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).playerCreditCard == this) {
+			RightPanelGUI.getSharedInstance().setMoneyLabelValue(this.money);
+		}
 	}
 	
 	public void credit(int value){
 		money += value;
+		if (Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).playerCreditCard == this) {
+			RightPanelGUI.getSharedInstance().setMoneyLabelValue(this.money);
+		}
 	}
 }

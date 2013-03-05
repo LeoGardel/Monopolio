@@ -1,10 +1,6 @@
 package monopoly;
 
-import java.util.List;
-
 import monopoly.GUI.ButtonForm;
-import monopoly.GUI.PlayerInterface;
-import monopoly.GUI.SleepState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -21,6 +17,8 @@ public class RightPanelGUI extends Stage
 {	
 	public static final int elementsMinSize = 5; 
 	public static final int elementsMinPadding = 10; 
+	public static final int logoHeight = 120;
+	public static final float logoFactor = ( 1024 - logoHeight) / 1024;
 	private static RightPanelGUI sharedInstance;
 	private Image img;
 	private Label welcomePlayerMessage;
@@ -57,7 +55,7 @@ public class RightPanelGUI extends Stage
 		diceResults.x = welcomePlayerMessage.x;
 		
 		moneyLabel = new Label("", labelStyle);
-		moneyLabel.y = Gdx.graphics.getHeight() - 30;
+		setMoneyLabelPosition();
 		
 		messageLabel = new Label("", labelStyle);
 		messageLabel.x = 10;
@@ -68,19 +66,6 @@ public class RightPanelGUI extends Stage
 		ButtonForm.loadNinesForButtons();
 		
 		setFirstMoment();
-		/*
-		this.addActor(new ButtonForm("Botoes Super", 1,5,1,1));
-		this.addActor(new ButtonForm("Lindos", 2,5,1,2));
-		this.addActor(new ButtonForm("Gostosos", 2,5,2,2));
-		this.addActor(new ButtonForm("Cheirosos", 3,5,1,2));
-		this.addActor(new ButtonForm("e tudo +", 3,5,2,2));
-		this.addActor(new ButtonForm("CLIQUE AQUI", 4,5,1,1, 200, 70) {
-			@Override
-			public void effect() {
-				setText("VALEU LEK! E NOS");
-			}
-			//QUE PEDERASTIA É ESSA?????????????
-		});*/
 	}
 	
 	private void setFirstMoment() {
@@ -118,6 +103,11 @@ public class RightPanelGUI extends Stage
 			}
 		});
 	}
+	
+	private void setMoneyLabelPosition() {
+		moneyLabel.y = - 20 +  ( Gdx.graphics.getHeight() * ( 1024 - logoHeight) / 1024);
+		moneyLabel.x = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)) - moneyLabel.getPrefWidth() - 10;
+	}
 
 	protected void setInitTurnMoment() {
 		this.addActor(img);
@@ -143,6 +133,7 @@ public class RightPanelGUI extends Stage
 			public void effect(){
 				if (this.visible){
 				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).buyProperty();
+				
 				}
 			}
 		};
@@ -290,6 +281,8 @@ public class RightPanelGUI extends Stage
 		
 		img.height = Gdx.graphics.getHeight();
 		img.width = Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor);
+		
+		setMoneyLabelPosition();
 	}
 	
 	public void showActualPlayer(int playerID, int money, int result1, int result2, boolean diceAgain) {
@@ -303,11 +296,15 @@ public class RightPanelGUI extends Stage
 			
 			diceResults.setText("You rolled " + result1 + " and " + result2);
 			
-			moneyLabel.setText("Current Money: R$" + money + ",00");
-			moneyLabel.x = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)) - moneyLabel.getPrefWidth() - 10;
+			setMoneyLabelValue(money);
+			setMoneyLabelPosition();
 		}
 		
 		diceResults.y = welcomePlayerMessage.y - 20 - diceResults.getPrefHeight();
+	}
+
+	public void setMoneyLabelValue(int money) {
+		moneyLabel.setText("Current Money: R$" + money + ",00");
 	}
 
 	public void showMessage(String string) {
