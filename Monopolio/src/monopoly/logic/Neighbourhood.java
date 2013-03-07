@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.badlogic.gdx.Gdx;
-
 import monopoly.RightPanelGUI;
 import monopoly.objects.InanimatedElement;
 import monopoly.objects.InanimatedObject;
@@ -43,6 +41,12 @@ public class Neighbourhood extends Property
 	
 	public int getRentValue()
 	{
+		if (hotelExists) {
+			return rentValue * 15;
+		}
+		if (numberOfHouses != 0) {
+			return rentValue * numberOfHouses * 3;
+		}
 		return rentValue;
 	}
 	
@@ -118,7 +122,7 @@ public class Neighbourhood extends Property
 		if (numberOfHouses != 4 ||
 			super.owner != player ||
 			this.hotelExists ||
-			player.playerCreditCard.money < this.houseCostValue)
+			player.playerCreditCard.money < this.hotelCostValue)
 		{
 			return false;
 		}
@@ -175,12 +179,12 @@ public class Neighbourhood extends Property
 	@Override
 	public void payRent(Player player)
 	{
-		if(player.playerCreditCard.money > rentValue){
-			player.playerCreditCard.debit(rentValue);
-			super.owner.playerCreditCard.credit(rentValue);
-			Gdx.app.log("", "You paid a rent of " + rentValue + " dollars!");
-			RightPanelGUI.getSharedInstance().showMessage("This property belong to player " + this.owner.playerID + 
-					"\nYou paid a rent of " + rentValue + " dollars!");
+		int rent = getRentValue();
+		if(player.playerCreditCard.money > rent){
+			player.playerCreditCard.debit(rent);
+			super.owner.playerCreditCard.credit(rent);
+			RightPanelGUI.getSharedInstance().showMessage("This property belong to player " + (this.owner.playerID + 1) + 
+					"\nYou paid a rent of " + rent + " dollars!");
 		}
 		else
 			player.declareBankruptcy();

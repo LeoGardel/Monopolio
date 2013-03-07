@@ -2,8 +2,6 @@ package monopoly.logic;
 
 import monopoly.RightPanelGUI;
 
-import com.badlogic.gdx.Gdx;
-
 public class Company extends Property
 {
 	public int factor;
@@ -23,8 +21,7 @@ public class Company extends Property
 		{
 			player.playerCreditCard.debit(rentValue);
 			super.owner.playerCreditCard.credit(rentValue);
-			Gdx.app.log("", "You paid a rent of " + rentValue + " dollars!");
-			RightPanelGUI.getSharedInstance().showMessage("This property belong to player " + this.owner.playerID + 
+			RightPanelGUI.getSharedInstance().showMessage("This property belong to player " + (this.owner.playerID + 1) + 
 					"\nYou paid a rent of " + rentValue + " dollars!");
 		}
 		

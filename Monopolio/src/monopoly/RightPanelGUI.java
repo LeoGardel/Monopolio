@@ -20,16 +20,18 @@ public class RightPanelGUI extends Stage
 	public static final int logoHeight = 120;
 	public static final float logoFactor = ( 1024 - logoHeight) / 1024;
 	private static RightPanelGUI sharedInstance;
-	private Image img;
+	private Image backgroundImage;
 	private Label welcomePlayerMessage;
 	private Label diceResults;
 	private Label moneyLabel;
 	private Label messageLabel;
 	private Label spaceTypeLabel;
-	private ButtonForm terminarRodada;
-	private ButtonForm comprarCasa;
-	private ButtonForm comprarHotel;
-	private ButtonForm comprarPropriedade;
+	private Label choseNumOfPlayersLabel;
+	public LabelStyle labelStyle;
+	private ButtonForm endTurn;
+	private ButtonForm buildHouse;
+	private ButtonForm buildHotel;
+	private ButtonForm buyProperty;
 	
 	public static RightPanelGUI getSharedInstance()
 	{
@@ -42,26 +44,23 @@ public class RightPanelGUI extends Stage
 	public RightPanelGUI(){
 		super((Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)), Gdx.graphics.getHeight(), false);
 		
-		img = new Image("bg", new Texture(Gdx.files.internal("resources/background-GUI.png")));
+		backgroundImage = new Image("bg", new Texture(Gdx.files.internal("resources/background-GUI.png")));
 		
-		LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
+		this.labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
+		
+		choseNumOfPlayersLabel = new Label("Choose number of Players:", labelStyle);
 		
 		welcomePlayerMessage = new Label("", labelStyle);
-		welcomePlayerMessage.width = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor));
-		welcomePlayerMessage.y = Gdx.graphics.getHeight() - 80;
-		welcomePlayerMessage.x = 10;
 		
 		diceResults = new Label("", labelStyle);
-		diceResults.x = welcomePlayerMessage.x;
 		
 		moneyLabel = new Label("", labelStyle);
-		setMoneyLabelPosition();
 		
 		messageLabel = new Label("", labelStyle);
-		messageLabel.x = 10;
-		messageLabel.width = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor));
 		
 		spaceTypeLabel = new Label("", labelStyle);
+		
+		setLabelsPosition();
 		
 		ButtonForm.loadNinesForButtons();
 		
@@ -69,66 +68,91 @@ public class RightPanelGUI extends Stage
 	}
 	
 	private void setFirstMoment() {
-		this.addActor(img);
+		this.addActor(backgroundImage);
+		this.addActor(choseNumOfPlayersLabel);
 		
-		LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(1, 1, 1, 1));
-		Label label = new Label("Choose number of Players:", labelStyle);
-		label.y = Gdx.graphics.getHeight() - 60;
-		label.x = 10;
-		this.addActor(label);
-		
-		
-		this.addActor(new ButtonForm("3", 4, 12, 1, 2){
+		this.addActor(new ButtonForm("3", 8, 12, 1, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(3);
+				choseNumOfPlayersLabel = null;
 			}
 		});
-		this.addActor(new ButtonForm("4", 4, 12, 2, 2){
+		this.addActor(new ButtonForm("4", 8, 12, 2, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(4);
+				choseNumOfPlayersLabel = null;
 			}
 		});
-		this.addActor(new ButtonForm("5", 5, 12, 1, 2){
+		this.addActor(new ButtonForm("5", 9, 12, 1, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(5);
+				choseNumOfPlayersLabel = null;
 			}
 		});
-		this.addActor(new ButtonForm("6", 5, 12, 2, 2){
+		this.addActor(new ButtonForm("6", 9, 12, 2, 2){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().startGame(6);
+				choseNumOfPlayersLabel = null;
 			}
 		});
 	}
 	
-	private void setMoneyLabelPosition() {
-		moneyLabel.y = - 20 +  ( Gdx.graphics.getHeight() * ( 1024 - logoHeight) / 1024);
-		moneyLabel.x = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor)) - moneyLabel.getPrefWidth() - 10;
+	private void setLabelsPosition() {
+		float totalX = (Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor));
+		float totalY = ( Gdx.graphics.getHeight() * ( 1024 - logoHeight) / 1024);
+		float defaultLabelPerfHeight = elementsMinPadding;
+		float defaultLabelX = elementsMinPadding;
+		
+		if(choseNumOfPlayersLabel != null) {
+			choseNumOfPlayersLabel.x = defaultLabelX;
+			choseNumOfPlayersLabel.y = totalY - defaultLabelPerfHeight - (6 * elementsMinPadding);
+		}
+		
+		moneyLabel.x = totalX - moneyLabel.getPrefWidth() - elementsMinPadding;
+		moneyLabel.y = totalY - defaultLabelPerfHeight - elementsMinPadding;
+		
+		welcomePlayerMessage.x = defaultLabelX;
+		welcomePlayerMessage.y = moneyLabel.y - (3 * defaultLabelPerfHeight) - elementsMinPadding;
+		
+		diceResults.x = defaultLabelX;
+		diceResults.y = welcomePlayerMessage.y - (4 * defaultLabelPerfHeight) - elementsMinPadding;
+		
+		spaceTypeLabel.x = defaultLabelX;
+		spaceTypeLabel.y = diceResults.y - (3 * defaultLabelPerfHeight) - elementsMinPadding;
+		
+		messageLabel.x = defaultLabelX;
+		messageLabel.y = spaceTypeLabel.y - (6 * defaultLabelPerfHeight) - elementsMinPadding;
+		
 	}
 
-	protected void setInitTurnMoment() {
-		this.addActor(img);
+	protected void setGameActors() {
+		this.clear();
+		this.addActor(backgroundImage);
 		this.addActor(welcomePlayerMessage);
 		this.addActor(diceResults);
 		this.addActor(moneyLabel);
 		this.addActor(messageLabel);
 		this.addActor(spaceTypeLabel);
-		setSpaceButtons();
+		setActionButtons();
 	}
 	
-	private void setSpaceButtons(){
-		terminarRodada = new ButtonForm("Terminar Rodada", 8, 8, 1, 1, 256, 64){
+	private void setActionButtons(){
+		int totalRows = 8;
+		int actionButtonWidth = (int) (Monopoly.applicationInitialWidth * ( 1 - Monopoly.splitFactor));
+		int actionButtonHeight = (int) (Monopoly.applicationInitialHeight / totalRows);
+		endTurn = new ButtonForm("End Turn", totalRows, totalRows, 1, 1, actionButtonWidth, actionButtonHeight){
 			@Override
 			public void effect(){
 				Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).endTurn();
 			}
 		};
-		this.addActor(terminarRodada);
+		this.addActor(endTurn);
 		
-		comprarPropriedade = new ButtonForm("Comprar Propriedade", 7, 8, 1, 1, 256, 64){
+		buyProperty = new ButtonForm("Buy Property", totalRows - 1, totalRows, 1, 1, actionButtonWidth, actionButtonHeight){
 			@Override
 			public void effect(){
 				if (this.visible){
@@ -137,9 +161,9 @@ public class RightPanelGUI extends Stage
 				}
 			}
 		};
-		this.addActor(comprarPropriedade);
+		this.addActor(buyProperty);
 		
-		comprarCasa = new ButtonForm("Comprar Casa", 6, 8, 1, 1, 256, 64){
+		buildHouse = new ButtonForm("Build House", totalRows - 2, totalRows, 1, 1, actionButtonWidth, actionButtonHeight){
 			@Override
 			public void effect(){
 				if (this.visible){
@@ -147,9 +171,9 @@ public class RightPanelGUI extends Stage
 				}
 			}
 		};
-		this.addActor(comprarCasa);
+		this.addActor(buildHouse);
 		
-		comprarHotel = new ButtonForm("Comprar Hotel", 7, 8, 1, 1, 256, 64){
+		buildHotel = new ButtonForm("Build Hotel", totalRows - 1, totalRows, 1, 1, actionButtonWidth, actionButtonHeight){
 			@Override
 			public void effect(){
 				if (this.visible){
@@ -157,49 +181,49 @@ public class RightPanelGUI extends Stage
 				}
 			}
 		};
-		this.addActor(comprarHotel);
+		this.addActor(buildHotel);
 	}
 	
 	public void setAvailableCompany() {
-		terminarRodada.visible = true;
-		comprarPropriedade.visible = true;
-		comprarCasa.visible = false;
-		comprarHotel.visible = false;
+		endTurn.visible = true;
+		buyProperty.visible = true;
+		buildHouse.visible = false;
+		buildHotel.visible = false;
 	}
 	
 	public void setOwnedCompany() {
-		terminarRodada.visible = true;
-		comprarPropriedade.visible = false;
-		comprarCasa.visible = false;
-		comprarHotel.visible = false;
+		endTurn.visible = true;
+		buyProperty.visible = false;
+		buildHouse.visible = false;
+		buildHotel.visible = false;
 	}
 	
 	public void setAvailableNeighbourhood() {
-		terminarRodada.visible = true;
-		comprarPropriedade.visible = true;
-		comprarCasa.visible = false;
-		comprarHotel.visible = false;
+		endTurn.visible = true;
+		buyProperty.visible = true;
+		buildHouse.visible = false;
+		buildHotel.visible = false;
 	}
 	
 	public void setOwnerNeighbourhood() {
-		terminarRodada.visible = true;
-		comprarPropriedade.visible = false;
-		comprarCasa.visible = true;
-		comprarHotel.visible = true;
+		endTurn.visible = true;
+		buyProperty.visible = false;
+		buildHouse.visible = true;
+		buildHotel.visible = true;
 	}
 	
 	public void setOwnedNeighbourhood(){
-		terminarRodada.visible = true;
-		comprarPropriedade.visible = false;
-		comprarCasa.visible = false;
-		comprarHotel.visible = false;
+		endTurn.visible = true;
+		buyProperty.visible = false;
+		buildHouse.visible = false;
+		buildHotel.visible = false;
 	}
 	
 	public void setElse() {
-		terminarRodada.visible = true;
-		comprarPropriedade.visible = false;
-		comprarCasa.visible = false;
-		comprarHotel.visible = false;
+		endTurn.visible = true;
+		buyProperty.visible = false;
+		buildHouse.visible = false;
+		buildHotel.visible = false;
 	}
 
 	@Override
@@ -208,7 +232,7 @@ public class RightPanelGUI extends Stage
 		for (Actor actor : this.getActors()) {
 			if(testMousePosition(x, y, actor))
 			{
-				if (actor instanceof ButtonForm) {
+				if (actor instanceof ButtonForm && actor.visible) {
 					((ButtonForm) actor).touchDown();
 					return true;
 				}
@@ -233,7 +257,7 @@ public class RightPanelGUI extends Stage
 		for (Actor actor : this.getActors()) {
 			if(testMousePosition(x, y, actor))
 			{
-				if (actor instanceof ButtonForm) {
+				if (actor instanceof ButtonForm && actor.visible) {
 					if (actor.equals(ButtonForm.clickedButton)) {
 						((ButtonForm) actor).touchUp();
 						return true;
@@ -256,7 +280,7 @@ public class RightPanelGUI extends Stage
 		for (Actor actor : this.getActors()) {
 			if(testMousePosition(x, y, actor))
 			{
-				if (actor instanceof ButtonForm) {
+				if (actor instanceof ButtonForm && actor.visible) {
 					((ButtonForm) actor).setAsHovered();
 					return true;
 				}
@@ -279,46 +303,54 @@ public class RightPanelGUI extends Stage
 			}
 		}
 		
-		img.height = Gdx.graphics.getHeight();
-		img.width = Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor);
+		backgroundImage.height = Gdx.graphics.getHeight();
+		backgroundImage.width = Gdx.graphics.getWidth() * (1 - Monopoly.splitFactor);
 		
-		setMoneyLabelPosition();
+		setLabelsPosition();
 	}
 	
-	public void showActualPlayer(int playerID, int money, int result1, int result2, boolean diceAgain) {
-		if(diceAgain){
-			diceResults.setText(diceResults.getText() + "\n" + "You rolled " + result1 + "and " + result2);
-		}
-		else
-		{
-			messageLabel.setText("");
-			welcomePlayerMessage.setText("I'm player " + (playerID+1) + " and it's my turn!");
-			
-			diceResults.setText("You rolled " + result1 + " and " + result2);
-			
-			setMoneyLabelValue(money);
-			setMoneyLabelPosition();
-		}
+	public void showActualPlayer(int playerID) {
+		welcomePlayerMessage.setText("I'm player " + (playerID+1) + " and it's my turn!");
+		diceResults.setText("");
+		spaceTypeLabel.setText("");
+		messageLabel.setText("");
 		
-		diceResults.y = welcomePlayerMessage.y - 20 - diceResults.getPrefHeight();
+		setMoneyLabelValue(Monopoly.getSharedInstance().players.get(playerID).playerCreditCard.money);
+		setLabelsPosition();
 	}
 
 	public void setMoneyLabelValue(int money) {
 		moneyLabel.setText("Current Money: R$" + money + ",00");
 	}
+	
+	public void showDiceResults(int result1, int result2) {
+		if (!(diceResults.getText().equals(""))) {
+			diceResults.setText(diceResults.getText() + "\n");
+		}
+		diceResults.setText(diceResults.getText() + "You rolled " + result1 + " and " + result2);
+	}
 
 	public void showMessage(String string) {
 		if (!(messageLabel.getText().contains(string))){
-		messageLabel.setText(messageLabel.getText() + "\n" + string);
-		messageLabel.y = spaceTypeLabel.y - messageLabel.getPrefHeight();
+			messageLabel.setText(messageLabel.getText() + "\n" + string);
 		}
 	}
 
 	public void showSpaceType(String str) {
 		spaceTypeLabel.setText("You are at " + str);
-		spaceTypeLabel.y = diceResults.y - 30;
-		spaceTypeLabel.x = 10;
-		
-		messageLabel.y = spaceTypeLabel.y - messageLabel.getPrefHeight();
+	}
+	
+	public void setWinner(int currentPlayer) {
+		welcomePlayerMessage.setText("");
+		diceResults.setText("");
+		spaceTypeLabel.setText("");
+		messageLabel.setText("I'M PLAYER " + (currentPlayer + 1) + " AND I WON!!!\n :D");
+	}
+	
+	public void nobodyWon() {
+		welcomePlayerMessage.setText("");
+		diceResults.setText("");
+		spaceTypeLabel.setText("");
+		messageLabel.setText("Nobody won this game...\n :(");
 	}
 }

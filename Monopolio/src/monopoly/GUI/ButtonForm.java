@@ -107,8 +107,10 @@ public class ButtonForm extends Button
 	 *Função invocada quando o botão é pressionado.
 	 */
 	public void touchDown() {
-		clickedButton = this;
-		this.style.up = nineButtonClicked;
+		if (this.visible) {
+			clickedButton = this;
+			this.style.up = nineButtonClicked;
+		}
 	}
 	
 	/*

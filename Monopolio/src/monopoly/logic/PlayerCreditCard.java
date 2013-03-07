@@ -16,6 +16,9 @@ public class PlayerCreditCard
 		if (Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).playerCreditCard == this) {
 			RightPanelGUI.getSharedInstance().setMoneyLabelValue(this.money);
 		}
+		if (money < 0) {
+			Monopoly.getSharedInstance().players.get(Monopoly.getSharedInstance().currentPlayer).declareBankruptcy();
+		}
 	}
 	
 	public void credit(int value){

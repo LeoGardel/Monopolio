@@ -2,8 +2,6 @@ package monopoly.logic;
 
 import java.io.IOException;
 
-import com.badlogic.gdx.Gdx;
-
 import monopoly.RightPanelGUI;
 import monopoly.objects.InanimatedElement;
 import monopoly.objects.InanimatedObject;
@@ -44,16 +42,13 @@ public class Pawn
 	
 	public void move(int numOfSpaces)
 	{
-		Gdx.app.log("", "previous space - " + Board.getSharedInstance().getPositionFromSpace(currentSpace));
 		currentSpace += numOfSpaces;
 		if(currentSpace >= Board.getSharedInstance().spaces.size())
 		{
 			currentSpace -= Board.getSharedInstance().spaces.size();
-			Gdx.app.log("", "You crossed the start line. Receive U$ 200");
 			RightPanelGUI.getSharedInstance().showMessage("You crossed the start line. \nReceive R$200,00");
 			this.owner.playerCreditCard.credit(200);
 		}
-		Gdx.app.log("", "after space - " + Board.getSharedInstance().getPositionFromSpace(currentSpace));
 		Board.getSharedInstance().spaces.get(currentSpace).movePawnToHere(this);
 	}
 }

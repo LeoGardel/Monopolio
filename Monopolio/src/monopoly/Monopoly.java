@@ -16,29 +16,30 @@
 
 package monopoly;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import monopoly.GUI.InGameGUI;
-import monopoly.GUI.MainMenu;
-import monopoly.GUI.PlayerInterface;
 import monopoly.camera.CameraHandler;
 import monopoly.logic.Board;
 import monopoly.logic.Color;
 import monopoly.logic.Player;
+import monopoly.objects.InanimatedElement;
+import monopoly.objects.InanimatedObject;
 import monopoly.objects.ObjectRenderer;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 
 public class Monopoly implements ApplicationListener, InputProcessor {
 	
 	public static final int applicationInitialWidth = 800;
 	public static final int applicationInitialHeight = 512;
 	public static final float splitFactor = 0.68f;
+	public int numOfPlayersOut = 0;
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
-	public InGameGUI baseGUI;
 	
 	public int currentPlayer = -1;
 
@@ -60,18 +61,39 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 			players.add( new Player("player " + i, i, Color.values()[i]) );
 		}
 		
-		RightPanelGUI.getSharedInstance().setInitTurnMoment();
+		RightPanelGUI.getSharedInstance().setGameActors();
 		Monopoly.getSharedInstance().callNextPlayer();
-		Monopoly.getSharedInstance().baseGUI = new PlayerInterface();
 	}
 	
 	public void callNextPlayer()
 	{
-		currentPlayer++;
-		if(currentPlayer == players.size())
-			currentPlayer = 0;
+		int previousPlayer = currentPlayer;
+		int i = 0;
+		do{
+			currentPlayer = nextPlayer(currentPlayer);
+			i++;
+		}
+		while (players.get(currentPlayer).bankruptcy && !(i == players.size() + 1));
 		
+		if (i == players.size() + 1) {
+			RightPanelGUI.getSharedInstance().nobodyWon();
+			return;
+		}
+		
+		if (previousPlayer == currentPlayer) {
+			RightPanelGUI.getSharedInstance().setWinner(currentPlayer);
+			return;
+		}
+		
+		RightPanelGUI.getSharedInstance().showActualPlayer(currentPlayer);
 		players.get(currentPlayer).rollDice();
+	}
+	
+	public int nextPlayer(int currentPlayer) {
+		if(currentPlayer + 1 == players.size())
+			return 0;
+		else
+			return currentPlayer + 1;
 	}
 	
 	@Override
@@ -82,8 +104,6 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 		Gdx.input.setInputProcessor(this);
 		
 		Board.getSharedInstance().initSpaces();
-		
-		baseGUI = new MainMenu();
 	}
 
 	@Override
@@ -119,7 +139,6 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	@Override
 	public boolean keyDown(int keycode)
 	{
-		baseGUI.effect();
 		return RightPanelGUI.getSharedInstance().keyDown(keycode);
 	}
 
@@ -132,6 +151,34 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 	@Override
 	public boolean keyTyped(char character)
 	{
+		if (new String("h").toCharArray()[0] == character) {
+			try
+			{
+				InanimatedObject hotelModel = new InanimatedObject("hotel/hotel", "hotel/hotel2.png", false);
+				InanimatedElement hotelNode = new InanimatedElement(hotelModel);
+				
+				hotelNode.position.set(new Vector3(5-4.1f, 5-4.1f, 0f));
+				hotelNode.setVisible();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		if (new String("c").toCharArray()[0] == character) {
+			try
+			{
+				InanimatedObject houseModel = new InanimatedObject("house/house", "house/house2.png", false);
+				InanimatedElement houseNode = new InanimatedElement(houseModel);
+				
+				houseNode.position.set(new Vector3(5-3.1f, 5-4.1f, 0f));
+				houseNode.setVisible();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		return RightPanelGUI.getSharedInstance().keyTyped(character);
 	}
 

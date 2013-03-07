@@ -2,8 +2,6 @@ package monopoly.logic;
 
 import monopoly.RightPanelGUI;
 
-import com.badlogic.gdx.Gdx;
-
 public class Property extends Space
 {
 	public int price;
@@ -30,12 +28,10 @@ public class Property extends Space
 			this.owner = ownerPlayer;
 			owner.playerCreditCard.debit(price);
 			ownerPlayer.properties.add(this);
-			Gdx.app.log("", "You bought this property for " + price + " dollars!");
 			RightPanelGUI.getSharedInstance().showMessage("You bought this property for " + price + " dollars!");
 			return;
 		}
 		
-		Gdx.app.log("", "You cannot afford this property, or it's already owned.");
 		RightPanelGUI.getSharedInstance().showMessage("You cannot buy this property.");
 	}
 	

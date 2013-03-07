@@ -43,8 +43,8 @@ public class Board
 	{
 		try
 		{
-//			boardModel = new InanimatedObject("board/board", "board/board3.png", false);
-			boardModel = new InanimatedObject("dice/dice", "dice/dice.png", false);
+			boardModel = new InanimatedObject("board/board", "board/board3.png", false);
+//			boardModel = new InanimatedObject("dice/dice", "dice/dice.png", false);
 		}
 		catch (IOException e)
 		{
