@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g3d.loaders.ModelLoaderOld;
 
-public class InanimatedObject 
+public class Object 
 {
 	public Mesh mesh;
 	public Texture diffuseTex;
 	
 	public boolean isTransparent;
 	
-	public InanimatedObject(String meshFileName, String diffuseFileName, boolean isTransparent) throws IOException
+	public Object(String meshFileName, String diffuseFileName, boolean isTransparent) throws IOException
 	{
 		this.isTransparent = isTransparent;
 		

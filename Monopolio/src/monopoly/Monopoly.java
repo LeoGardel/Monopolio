@@ -23,8 +23,8 @@ import monopoly.camera.CameraHandler;
 import monopoly.logic.Board;
 import monopoly.logic.Color;
 import monopoly.logic.Player;
-import monopoly.objects.InanimatedElement;
-import monopoly.objects.InanimatedObject;
+import monopoly.objects.Element;
+import monopoly.objects.Object;
 import monopoly.objects.ObjectRenderer;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -154,8 +154,8 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 		if (new String("h").toCharArray()[0] == character) {
 			try
 			{
-				InanimatedObject hotelModel = new InanimatedObject("hotel/hotel", "hotel/hotel2.png", false);
-				InanimatedElement hotelNode = new InanimatedElement(hotelModel);
+				Object hotelModel = new Object("hotel/hotel", "hotel/hotel2.png", false);
+				Element hotelNode = new Element(hotelModel);
 				
 				hotelNode.position.set(new Vector3(5-4.1f, 5-4.1f, 0f));
 				hotelNode.setVisible();
@@ -168,8 +168,8 @@ public class Monopoly implements ApplicationListener, InputProcessor {
 		if (new String("c").toCharArray()[0] == character) {
 			try
 			{
-				InanimatedObject houseModel = new InanimatedObject("house/house", "house/house2.png", false);
-				InanimatedElement houseNode = new InanimatedElement(houseModel);
+				Object houseModel = new Object("house/house", "house/house2.png", false);
+				Element houseNode = new Element(houseModel);
 				
 				houseNode.position.set(new Vector3(5-3.1f, 5-4.1f, 0f));
 				houseNode.setVisible();

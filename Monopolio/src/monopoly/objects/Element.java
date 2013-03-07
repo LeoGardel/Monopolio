@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Vector3;
 
-public class InanimatedElement
+public class Element
 {
 	GL10 gl;
 	int ID;
 	
-	public InanimatedObject srcObject;
+	public Object srcObject;
 	
 	public Vector3 position = new Vector3();
 	public Vector3 scale = new Vector3(1,1,1);
@@ -17,7 +17,7 @@ public class InanimatedElement
 	
 	public boolean isVisible = true;
 	
-	public InanimatedElement(InanimatedObject srcObject)
+	public Element(Object srcObject)
 	{
 		gl = Gdx.app.getGraphics().getGL10();
 		

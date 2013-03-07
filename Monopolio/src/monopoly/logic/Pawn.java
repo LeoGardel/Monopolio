@@ -3,15 +3,15 @@ package monopoly.logic;
 import java.io.IOException;
 
 import monopoly.RightPanelGUI;
-import monopoly.objects.InanimatedElement;
-import monopoly.objects.InanimatedObject;
+import monopoly.objects.Element;
+import monopoly.objects.Object;
 
 public class Pawn
 {
 	public int currentSpace;
 	public Player owner;
-	InanimatedObject pawnModel;
-	public InanimatedElement pawnNode;
+	Object pawnModel;
+	public Element pawnNode;
 	
 	public int ID;
 	
@@ -19,14 +19,14 @@ public class Pawn
 	{
 		try
 		{
-			pawnModel = new InanimatedObject("pawn/pawn", "pawn/pawn_" + color.toString() + ".png", false);
+			pawnModel = new Object("pawn/pawn", "pawn/pawn_" + color.toString() + ".png", false);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 		
-		pawnNode = new InanimatedElement(pawnModel);
+		pawnNode = new Element(pawnModel);
 		
 		currentSpace = 0;
 		

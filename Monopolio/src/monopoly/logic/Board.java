@@ -7,8 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import monopoly.objects.InanimatedElement;
-import monopoly.objects.InanimatedObject;
+import monopoly.objects.Element;
+import monopoly.objects.Object;
 
 import com.badlogic.gdx.math.Vector3;
 
@@ -16,8 +16,8 @@ public class Board
 {
 	//private float borderLimit = 4.3f;
 	
-	InanimatedObject boardModel;
-	InanimatedElement boardNode;
+	Object boardModel;
+	Element boardNode;
 	
 	private static Board sharedInstance;
 	
@@ -43,7 +43,7 @@ public class Board
 	{
 		try
 		{
-			boardModel = new InanimatedObject("board/board", "board/board3.png", false);
+			boardModel = new Object("board/board", "board/board3.png", false);
 //			boardModel = new InanimatedObject("dice/dice", "dice/dice.png", false);
 		}
 		catch (IOException e)
@@ -51,7 +51,7 @@ public class Board
 			e.printStackTrace();
 		}
 		
-		boardNode = new InanimatedElement(boardModel);
+		boardNode = new Element(boardModel);
 	}
 	
 	

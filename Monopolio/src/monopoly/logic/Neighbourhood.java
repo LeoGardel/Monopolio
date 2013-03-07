@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import monopoly.RightPanelGUI;
-import monopoly.objects.InanimatedElement;
-import monopoly.objects.InanimatedObject;
+import monopoly.objects.Element;
+import monopoly.objects.Object;
 
 public class Neighbourhood extends Property
 {
@@ -18,11 +18,11 @@ public class Neighbourhood extends Property
 	private Boolean hotelExists;
 	private int colorValue;
 	
-	private InanimatedObject houseModel;
-	private ArrayList<InanimatedElement> houseNodes = new ArrayList<InanimatedElement>();
+	private Object houseModel;
+	private ArrayList<Element> houseNodes = new ArrayList<Element>();
 	
-	private InanimatedObject hotelModel;
-	private InanimatedElement hotelNode;
+	private Object hotelModel;
+	private Element hotelNode;
 	
 	public Neighbourhood(String name, String cost, String color, 
 			String houseCost, String hotelCost, String mortgage, String rent, String spaceNumberString)
@@ -102,14 +102,14 @@ public class Neighbourhood extends Property
 	{
 		try
 		{
-			houseModel = new InanimatedObject("house/house", "house/house2.png", false);
+			houseModel = new Object("house/house", "house/house2.png", false);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 		
-		InanimatedElement houseNode = new InanimatedElement(houseModel);
+		Element houseNode = new Element(houseModel);
 		
 		houseNode.position.set(getHousePosition(this.numberOfHouses));
 		
@@ -151,9 +151,9 @@ public class Neighbourhood extends Property
 		this.hotelExists = true;
 	    
 		loadHotelModel();
-		Iterator<InanimatedElement>itr2 = houseNodes.iterator();
+		Iterator<Element>itr2 = houseNodes.iterator();
 		while (itr2.hasNext()) {
-			( (InanimatedElement)itr2.next() ).position.set(0, 0, 100000);
+			( (Element)itr2.next() ).position.set(0, 0, 100000);
 		}
 		
 		return true;
@@ -163,14 +163,14 @@ public class Neighbourhood extends Property
 	{
 		try
 		{
-			hotelModel = new InanimatedObject("hotel/hotel", "hotel/hotel2.png", false);
+			hotelModel = new Object("hotel/hotel", "hotel/hotel2.png", false);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 		
-		hotelNode = new InanimatedElement(hotelModel);
+		hotelNode = new Element(hotelModel);
 		
 		hotelNode.position.set(getHousePosition(0));
 		hotelNode.setVisible();
